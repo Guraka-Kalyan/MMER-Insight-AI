@@ -1,0 +1,16 @@
+{
+  "name": "Insight AI",
+  "short_name": "InsightAI",
+  "description": "Multimodal Emotion Recognition System",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000008",
+  "theme_color": "#000008",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
