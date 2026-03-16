@@ -190,8 +190,7 @@ npm run dev
 
 ---
 
-## 👥 Team
-*   *(Your Name / Peer Names Here)*
+
 
 ---
 
