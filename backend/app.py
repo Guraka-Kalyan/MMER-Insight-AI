@@ -25,7 +25,7 @@ emotion_detector = FER(mtcnn=True)
 # Emotion keywords mapping - using 'joy' instead of 'happy' to match frontend expectations
 EMOTION_KEYWORDS = {
     'happy': ["great", "awesome", "happy", "happier", "good", "nice", "love", "joy", "over the moon", "on cloud nine", "delighted","grateful","peaceful", "ecstatic", "excited"],
-    'sad': ['sad',"bad" 'unhappy', 'depressed', 'miserable', 'sorrow', 'upset'],
+    'sad': ['sad', 'bad', 'unhappy', 'depressed', 'miserable', 'sorrow', 'upset'],
     'angry': ['angry',"infuriating", 'mad', 'furious', 'annoyed', 'irritated', 'frustrated'],
     'fear': ['fear', 'scared', 'afraid', 'terrified', 'worried', 'anxious'],
     'surprise': ['surprise',"unexpected", "shocking", "cant believe", 'surprised', 'amazed', 'shocked', 'astonished'],
@@ -213,7 +213,9 @@ def detect_emotion_from_image(image_path):
         label = max(emotion_avgs.items(), key=lambda x: x[1])[0]
         response = {
             'label': label,
+            'emotion': label,  # Added for compatibility
             'probabilities': emotion_avgs,
+            'confidence': emotion_avgs[label],  # Added for compatibility
             'faces': face_count
         }
         print(f"[DEBUG] Response: {response}")
@@ -258,7 +260,7 @@ def predict_text():
             
             # If confidence is low, also set some neutral probability
             if confidence < 0.7:
-                response['probabilities']['neutral'] = 0.3
+                response['probabilities']['neutral'] = max(response['probabilities'].get('neutral', 0), 0.3)
         
         print(f"Returning response: {response}")  # Debug log
         return jsonify(response)
@@ -370,8 +372,10 @@ def predict_video():
                 
                 # Get emotion for this frame
                 result = detect_emotion_from_image(frame_path)
-                if 'emotion' in result and 'confidence' in result:
-                    frame_emotions.append((result['emotion'], result['confidence']))
+                if 'label' in result and 'probabilities' in result:
+                    label = result['label']
+                    confidence = result['probabilities'][label]
+                    frame_emotions.append((label, confidence))
                 
                 # Clean up
                 if os.path.exists(frame_path):
