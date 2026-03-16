@@ -328,12 +328,11 @@ const DashboardPage = () => {
   // API Status check
   const [apiStatus, setApiStatus] = useState<'pending' | 'connected' | 'disconnected'>('pending');
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/predict_text`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: 'healthcheck' })
-    })
-      .then(() => setApiStatus('connected'))
+    fetch(`${import.meta.env.VITE_API_URL}/health`)
+      .then((res) => {
+        if (res.ok) setApiStatus('connected');
+        else setApiStatus('disconnected');
+      })
       .catch(() => setApiStatus('disconnected'));
   }, []);
   // Reset results when switching modalities
