@@ -8,17 +8,6 @@
 
 **Insight AI** is a professional-grade multimodal emotion recognition system developed as a final year college project. It leverages deep learning and computer vision to decode human emotions across four distinct input modalities: **Text, Audio, Images,** and **Live Video**.
 
----
-
-## 🚀 Demo
-*(Insert Demo Video or GIF here)*
-
-| Landing Page | Analysis Dashboard |
-| :---: | :---: |
-| ![Landing Placeholder](https://via.placeholder.com/400x225?text=Landing+Page+Screenshot) | ![Dashboard Placeholder](https://via.placeholder.com/400x225?text=Dashboard+Screenshot) |
-
----
-
 ## 🛠️ Tech Stack
 
 ### 🖥️ Frontend
